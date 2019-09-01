@@ -1,20 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
+﻿using OpenQA.Selenium;
 
 namespace address_book_web_tests
 {
     public class LoginHelper : HelperBase
     {
-        
 
-        public LoginHelper(IWebDriver driver) 
-            : base(driver)
+
+        public LoginHelper(ApplicationManager manager)
+            : base(manager)
         {
         }
 
