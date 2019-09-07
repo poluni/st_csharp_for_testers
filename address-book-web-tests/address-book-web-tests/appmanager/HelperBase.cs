@@ -12,5 +12,14 @@ namespace address_book_web_tests
             this.manager = manager;
             this.driver = manager.Driver;
         }
+
+        public void Type(By locator, string textInput)
+        {
+            if (textInput != null)
+            {
+                driver.FindElement(locator).Clear();
+                driver.FindElement(locator).SendKeys(textInput);
+            }
+        }
     }
 }
