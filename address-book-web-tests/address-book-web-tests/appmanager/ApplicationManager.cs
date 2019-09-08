@@ -16,7 +16,7 @@ namespace address_book_web_tests
         protected NavigationHelper navigator;
         protected GroupHelper groupHelper;
         protected ContactHelper contactHelper;
-
+        
         public ApplicationManager()
         {
             driver = new ChromeDriver();
