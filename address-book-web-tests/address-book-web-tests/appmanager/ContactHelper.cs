@@ -46,6 +46,34 @@ namespace address_book_web_tests
             manager.Navigator.GoToHomePage();
             return this;
         }
+        /*
+        public ContactHelper CheckContactExist(int num, ContactData contact)
+        {
+            if (IsContactCreatedBase())
+            {
+                if (IsContactCreated(num, contact))
+                {
+                    return;
+                }
+            }
+            else
+            {
+                Create(contact);
+            }
+            return;
+        }
+
+        public bool Is—ontactCreated(int num, ContactData contact)
+        {
+            return IsContactCreatedBase()
+                && driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + num + "]")).Text
+                == contact.Firstname;
+        }
+        */
+        public bool Is—ontactCreatedBase()
+        {
+            return IsElementPresent(By.Name("selected[]"));
+        }
 
         public ContactHelper SubmitContactCreation()
         {

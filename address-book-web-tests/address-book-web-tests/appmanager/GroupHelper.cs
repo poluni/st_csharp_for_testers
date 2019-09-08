@@ -1,3 +1,4 @@
+using System;
 using OpenQA.Selenium;
 
 namespace address_book_web_tests
@@ -21,8 +22,24 @@ namespace address_book_web_tests
             return this;
         }
 
-        public GroupHelper Modify(int num, GroupData newData)
+        public GroupHelper CheckGroupExist(int num, GroupData group)
         {
+            if (IsGroupCreatedBase())
+            {
+                if (IsGroupCreated(num, group))
+                {
+                    return this;
+                }
+            }
+            else
+            {
+                Create(group);
+            }
+            return this;
+        }        
+
+        public GroupHelper Modify(int num, GroupData newData)
+        { 
             manager.Navigator.GoToGroupsPage();
             SelectGroup(num);
             InitGroupModification();
@@ -30,6 +47,18 @@ namespace address_book_web_tests
             SubmitGroupModification();
             ReturnToGroupsPage();
             return this;
+        }
+
+        public bool IsGroupCreated(int num, GroupData newData)
+        {
+            return IsGroupCreatedBase()
+                && driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + num + "]")).Text
+                == newData.Name;
+        }
+
+        public bool IsGroupCreatedBase()
+        {
+            return IsElementPresent(By.Name("selected[]"));
         }
 
         public GroupHelper SubmitGroupModification()
@@ -87,8 +116,8 @@ namespace address_book_web_tests
 
         public GroupHelper SelectGroup(int index)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
-            return this;
+                driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+                return this;
         }
     }
 }

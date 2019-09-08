@@ -9,6 +9,7 @@ namespace address_book_web_tests
         public void ContactModificationTest()
         {
             ContactData newContactData = new ContactData("Lora", "Palmer");
+            app.Contact.CheckContactExist(1, new ContactData("Вася", "Иванов"));
             app.Contact.Modify(1, newContactData);
         }
 
@@ -16,6 +17,7 @@ namespace address_book_web_tests
         public void ContactEmptyModificationTest()
         {
             ContactData newContactData = new ContactData("", "");
+            app.Contact.CheckContactExist(1, new ContactData("Вася", "Иванов"));
             app.Contact.Modify(1, newContactData);
         }
     }
