@@ -10,12 +10,10 @@ namespace address_book_web_tests
     [SetUpFixture]
     public class TestSuiteFixture
     {
-        public static ApplicationManager app;
-
         [SetUp]
         public void InitApplicationManager()
         {
-            app = new ApplicationManager();
+            ApplicationManager app = ApplicationManager.GetInstance();
             app.Navigator.GoToHomePage();
             app.Auth.Login(new AccountData("admin", "secret"));
         }
@@ -23,8 +21,7 @@ namespace address_book_web_tests
         [TearDown]
         public void StopApplicationManager()
         {
-            app.Auth.Logout();
-            app.Stop();
+            ApplicationManager.GetInstance().Auth.Logout();
         }
     }
 }
