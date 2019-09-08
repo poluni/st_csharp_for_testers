@@ -40,29 +40,14 @@ namespace address_book_web_tests
             }
         }
 
-        public LoginHelper Auth
-        {
-            get { return loginHelper; }
-        }
+        public LoginHelper Auth => loginHelper;
 
-        public NavigationHelper Navigator
-        {
-            get { return navigator; }
-        }
+        public NavigationHelper Navigator => navigator;
 
-        public GroupHelper Groups
-        {
-            get { return groupHelper; }
-        }
+        public GroupHelper Groups => groupHelper;
 
-        public ContactHelper Contact
-        {
-            get { return contactHelper; }
-        }
+        public ContactHelper Contact => contactHelper;
 
-        public IWebDriver Driver
-        {
-            get { return driver; }
-        }
+        public IWebDriver Driver => driver;
     }
 }

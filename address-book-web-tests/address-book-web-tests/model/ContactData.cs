@@ -19,14 +19,14 @@ namespace address_book_web_tests
 
         public string Firstname
         {
-            get { return firstname; }
-            set { firstname = value; }
+            get => firstname; 
+            set => firstname = value; 
         }
 
         public string Lastname
         {
-            get { return lastname; }
-            set { lastname = value; }
+            get => lastname; 
+            set => lastname = value;
         }
     }
 }
