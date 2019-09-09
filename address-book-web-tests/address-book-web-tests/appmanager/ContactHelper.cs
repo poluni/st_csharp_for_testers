@@ -46,30 +46,32 @@ namespace address_book_web_tests
             manager.Navigator.GoToHomePage();
             return this;
         }
-        /*
+
         public ContactHelper CheckContactExist(int num, ContactData contact)
         {
-            if (IsContactCreatedBase())
+            manager.Navigator.GoToHomePage();
+            if (Is—ontactCreatedBase())
             {
-                if (IsContactCreated(num, contact))
+                if (Is—ontactCreated(num, contact))
                 {
-                    return;
+                    return this;
                 }
             }
             else
             {
                 Create(contact);
+                return this;
             }
-            return;
+            return this;
         }
 
         public bool Is—ontactCreated(int num, ContactData contact)
         {
-            return IsContactCreatedBase()
+            return Is—ontactCreatedBase()
                 && driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + num + "]")).Text
                 == contact.Firstname;
         }
-        */
+
         public bool Is—ontactCreatedBase()
         {
             return IsElementPresent(By.Name("selected[]"));

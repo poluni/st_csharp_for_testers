@@ -24,6 +24,7 @@ namespace address_book_web_tests
 
         public GroupHelper CheckGroupExist(int num, GroupData group)
         {
+            manager.Navigator.GoToGroupsPage();
             if (IsGroupCreatedBase())
             {
                 if (IsGroupCreated(num, group))
@@ -34,6 +35,7 @@ namespace address_book_web_tests
             else
             {
                 Create(group);
+                return this;
             }
             return this;
         }        
@@ -49,11 +51,11 @@ namespace address_book_web_tests
             return this;
         }
 
-        public bool IsGroupCreated(int num, GroupData newData)
+        public bool IsGroupCreated(int num, GroupData group)
         {
             return IsGroupCreatedBase()
                 && driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + num + "]")).Text
-                == newData.Name;
+                == group.Name;
         }
 
         public bool IsGroupCreatedBase()

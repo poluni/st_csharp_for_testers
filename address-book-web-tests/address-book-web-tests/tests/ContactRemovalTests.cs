@@ -8,6 +8,7 @@ namespace address_book_web_tests
         [Test]
         public void ContactRemovalTest()
         {
+            app.Contact.CheckContactExist(1, new ContactData("Вася", "Иванов"));
             app.Contact.Remove(1, true);
         }
     }
