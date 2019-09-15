@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace address_book_web_tests
 {
@@ -11,8 +12,14 @@ namespace address_book_web_tests
             GroupData newData = new GroupData("Group_0");
             newData.Header = "Header_0";
             newData.Footer = "Footer_0";
-            app.Groups.CheckGroupExist(1, new GroupData("Group_1", "Header_1", "Footer_2"));
-            app.Groups.Modify(1, newData);
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
+            app.Groups.CheckGroupExist(0, new GroupData("Group_1", "Header_1", "Footer_2"));
+            app.Groups.Modify(0, newData);
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+            oldGroups[0].Name = newData.Name;
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups, "Группа не изменена!");
         }
     }
 }

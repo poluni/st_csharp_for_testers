@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using OpenQA.Selenium;
 
 namespace address_book_web_tests
@@ -20,6 +21,18 @@ namespace address_book_web_tests
             SubmitGroupCreation();
             ReturnToGroupsPage();
             return this;
+        }
+
+        public List<GroupData> GetGroupList()
+        {
+            List<GroupData> groups = new List<GroupData>();
+            manager.Navigator.GoToGroupsPage();
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
+            foreach (IWebElement element in elements)
+            {
+                groups.Add(new GroupData(element.Text));
+            }
+            return groups;
         }
 
         public GroupHelper CheckGroupExist(int num, GroupData group)
@@ -54,7 +67,7 @@ namespace address_book_web_tests
         public bool IsGroupCreated(int num, GroupData group)
         {
             return IsGroupCreatedBase()
-                && driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + num + "]")).Text
+                && driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (num + 1) + "]")).Text
                 == group.Name;
         }
 
@@ -118,7 +131,7 @@ namespace address_book_web_tests
 
         public GroupHelper SelectGroup(int index)
         {
-                driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+                driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
                 return this;
         }
     }
