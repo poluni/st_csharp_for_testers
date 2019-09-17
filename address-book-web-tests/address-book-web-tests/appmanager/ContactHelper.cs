@@ -1,4 +1,6 @@
 using OpenQA.Selenium;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace address_book_web_tests
 {
@@ -68,7 +70,7 @@ namespace address_book_web_tests
         public bool Is—ontactCreated(int num, ContactData contact)
         {
             return Is—ontactCreatedBase()
-                && driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + num + "]")).Text
+                && driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + num + 1 + "]")).Text
                 == contact.Firstname;
         }
 
@@ -99,7 +101,7 @@ namespace address_book_web_tests
 
         public ContactHelper SelectContact(int index)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + 1  + "]")).Click();
             return this;
         }
 
@@ -113,6 +115,25 @@ namespace address_book_web_tests
         {
             driver.FindElement(By.XPath("(//input[@name='update'])[2]")).Click();
             return this;
+        }
+
+        public List<ContactData> GetContactList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            manager.Navigator.GoToHomePage();
+            ICollection<IWebElement> rows = driver.FindElement(By.XPath(".//*[@id='maintable']")).FindElements(By.TagName("tr"));
+            bool headerFlag = true;
+            foreach (var row in rows)
+            {
+                if (headerFlag)
+                {
+                    headerFlag = false;
+                    continue;
+                }
+                ICollection<IWebElement> cells = row.FindElements(By.TagName("td"));
+                contacts.Add(new ContactData(cells.ElementAt(2).Text, cells.ElementAt(1).Text));
+            }
+            return contacts;
         }
 
         private bool IsAlertPresent()
@@ -148,7 +169,6 @@ namespace address_book_web_tests
             {
                 alertAcc = true;
             }
-
         }
     }
 }
