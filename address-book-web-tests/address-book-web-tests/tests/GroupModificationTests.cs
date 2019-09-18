@@ -19,7 +19,7 @@ namespace address_book_web_tests
             oldGroups[0].Name = newData.Name;
             oldGroups.Sort();
             newGroups.Sort();
-            Assert.AreEqual(oldGroups, newGroups, "Группа не изменена!");
+            Assert.AreEqual(oldGroups, newGroups);
         }
     }
 }

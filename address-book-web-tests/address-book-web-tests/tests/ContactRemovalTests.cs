@@ -16,7 +16,7 @@ namespace address_book_web_tests
             oldContacts.RemoveAt(0);
             oldContacts.Sort();
             newContacts.Sort();
-            Assert.AreEqual(oldContacts, newContacts, "Контакт не удален!");
+            Assert.AreEqual(oldContacts, newContacts);
         }
     }
 }

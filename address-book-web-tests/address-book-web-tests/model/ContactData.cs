@@ -8,26 +8,15 @@ namespace address_book_web_tests
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
-        private string firstname;
-        private string lastname;
-
         public ContactData(string firstname, string lastname)
         {
-            this.firstname = firstname;
-            this.lastname = lastname;
+            Firstname = firstname;
+            Lastname = lastname;
         }
 
-        public string Firstname
-        {
-            get => firstname; 
-            set => firstname = value; 
-        }
+        public string Firstname { get; set; }
 
-        public string Lastname
-        {
-            get => lastname; 
-            set => lastname = value;
-        }
+        public string Lastname { get; set; }
 
         public int CompareTo(ContactData otherContact)
         {

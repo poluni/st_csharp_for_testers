@@ -17,7 +17,7 @@ namespace address_book_web_tests
             oldGroups.RemoveAt(0);
             oldGroups.Sort();
             newGroups.Sort();
-            Assert.AreEqual(oldGroups, newGroups, "Группа не удалена!");
+            Assert.AreEqual(oldGroups, newGroups);
         }
     }
 }

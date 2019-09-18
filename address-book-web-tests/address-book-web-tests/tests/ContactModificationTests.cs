@@ -6,7 +6,6 @@ namespace address_book_web_tests
     [TestFixture]
     public class ContactModificationTests : AuthTestBase
     {
-        private const string TextMessage = "Контакт не изменен!";
 
         [Test]
         public void ContactModificationTest()
@@ -20,7 +19,7 @@ namespace address_book_web_tests
             oldContacts[0].Lastname = newContactData.Lastname;
             oldContacts.Sort();
             newContacts.Sort();
-            Assert.AreEqual(oldContacts, newContacts, TextMessage);
+            Assert.AreEqual(oldContacts, newContacts);
         }
 
         [Test]
@@ -35,7 +34,7 @@ namespace address_book_web_tests
             oldContacts[0].Lastname = newContactData.Lastname;
             oldContacts.Sort();
             newContacts.Sort();
-            Assert.AreEqual(oldContacts, newContacts, TextMessage);
+            Assert.AreEqual(oldContacts, newContacts);
         }
     }
 }

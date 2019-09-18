@@ -37,6 +37,7 @@ namespace address_book_web_tests
         private ContactHelper SubmitContactRemoval()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            contactCache = null;
             return this;
         }
 
@@ -83,6 +84,7 @@ namespace address_book_web_tests
         {
             driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
             driver.FindElement(By.LinkText("home")).Click();
+            contactCache = null;
             return this;
         }
 
@@ -114,26 +116,32 @@ namespace address_book_web_tests
         public ContactHelper SubmitContactModification()
         {
             driver.FindElement(By.XPath("(//input[@name='update'])[2]")).Click();
+            contactCache = null;
             return this;
         }
 
+        private List<ContactData> contactCache = null;
+        
         public List<ContactData> GetContactList()
         {
-            List<ContactData> contacts = new List<ContactData>();
-            manager.Navigator.GoToHomePage();
-            ICollection<IWebElement> rows = driver.FindElement(By.XPath(".//*[@id='maintable']")).FindElements(By.TagName("tr"));
-            bool headerFlag = true;
-            foreach (var row in rows)
+            if (contactCache == null)
             {
-                if (headerFlag)
+                contactCache = new List<ContactData>();
+                manager.Navigator.GoToHomePage();
+                ICollection<IWebElement> rows = driver.FindElement(By.Id("maintable")).FindElements(By.TagName("tr"));
+                bool headerFlag = true;
+                foreach (var row in rows)
                 {
-                    headerFlag = false;
-                    continue;
+                    if (headerFlag)
+                    {
+                        headerFlag = false;
+                        continue;
+                    }
+                    ICollection<IWebElement> cells = row.FindElements(By.TagName("td"));
+                    contactCache.Add(new ContactData(cells.ElementAt(2).Text, cells.ElementAt(1).Text));
                 }
-                ICollection<IWebElement> cells = row.FindElements(By.TagName("td"));
-                contacts.Add(new ContactData(cells.ElementAt(2).Text, cells.ElementAt(1).Text));
             }
-            return contacts;
+            return new List<ContactData>(contactCache);
         }
 
         private bool IsAlertPresent()

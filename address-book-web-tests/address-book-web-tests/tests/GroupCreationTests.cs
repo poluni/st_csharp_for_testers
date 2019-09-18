@@ -8,8 +8,6 @@ namespace address_book_web_tests
     [TestFixture]
     public class GroupCreationTests : AuthTestBase
     {
-        private const string TextMessage = "Списки групп отличаются. Новая группа не создана!";
-
         [Test]
         public void CreateNewGroupWithFillFieldsTest()
         {
@@ -22,7 +20,7 @@ namespace address_book_web_tests
             oldGroups.Add(groupData);
             oldGroups.Sort();
             newGroups.Sort();
-            Assert.AreEqual(oldGroups, newGroups, TextMessage);
+            Assert.AreEqual(oldGroups, newGroups);
         }
 
         [Test]
@@ -37,7 +35,7 @@ namespace address_book_web_tests
             oldGroups.Add(groupData);
             oldGroups.Sort();
             newGroups.Sort();
-            Assert.AreEqual(oldGroups, newGroups, TextMessage);
+            Assert.AreEqual(oldGroups, newGroups);
         }
 
         [Test]
@@ -52,7 +50,7 @@ namespace address_book_web_tests
             oldGroups.Add(groupData);
             oldGroups.Sort();
             newGroups.Sort();
-            Assert.AreEqual(oldGroups, newGroups, TextMessage);
+            Assert.AreEqual(oldGroups, newGroups);
         }
     }
 }
