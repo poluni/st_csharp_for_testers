@@ -24,11 +24,14 @@ namespace address_book_web_tests
             {
                 return 1;
             }
-            if (Firstname.CompareTo(otherContact.Firstname) == 0 && Lastname.CompareTo(otherContact.Lastname) == 0)
+            if (Lastname.CompareTo(otherContact.Lastname) == 0)
             {
-                return 0;
+                if (Firstname.CompareTo(otherContact.Firstname) == 0)
+                {
+                    return Firstname.CompareTo(otherContact.Firstname);
+                }
             }
-            return 1;
+            return Lastname.CompareTo(otherContact.Lastname);
         }
 
         public bool Equals(ContactData otherContact)

@@ -10,7 +10,7 @@ namespace address_book_web_tests
         [Test]
         public void ContactModificationTest()
         {
-            ContactData newContactData = new ContactData("Lora", "Palmer");
+            ContactData newContactData = new ContactData("Yan", "Сидоров-Иванов");
             List<ContactData> oldContacts = app.Contact.GetContactList();
             app.Contact.CheckContactExist(0, new ContactData("Вася", "Иванов"));
             app.Contact.Modify(0, newContactData);
