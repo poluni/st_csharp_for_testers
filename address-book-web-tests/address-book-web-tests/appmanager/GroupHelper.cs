@@ -28,19 +28,31 @@ namespace address_book_web_tests
         public List<GroupData> GetGroupList()
         {
             if (groupCache == null)
-                {
+            {
                     groupCache = new List<GroupData>();
                     manager.Navigator.GoToGroupsPage();
                     ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
                     foreach (IWebElement element in elements)
-                        {
-                            GroupData group = new GroupData(element.Text)
+                    {
+                            groupCache.Add(new GroupData(null)
                             {
                                 Id = element.FindElement(By.TagName("input")).GetAttribute("value")
-                            };
-                            groupCache.Add(group);
-                        }
+                            });
+                    }
+                string allGroupNames = driver.FindElement(By.CssSelector("Div#content form")).Text;
+                string[] parts = allGroupNames.Split('\n');
+                int shift = groupCache.Count - parts.Length;
+                for (int i = 0; i < groupCache.Count; i++)
+                {
+                    if (i < shift)
+                    {
+                        groupCache[i].Name = "";
+                    }
+                    else {
+                        groupCache[i].Name = parts[i - shift].Trim();
+                    }                    
                 }
+            }
             return new List<GroupData>(groupCache);
         }
 
