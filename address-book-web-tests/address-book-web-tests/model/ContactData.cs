@@ -11,6 +11,7 @@ namespace address_book_web_tests
     {
         private string allPhones;
         private string allEmails;
+        private string allContactInfo;
 
         public ContactData(string firstname, string lastname)
         {
@@ -20,15 +21,29 @@ namespace address_book_web_tests
 
         public string Firstname { get; set; }
 
+        public string IdContact { get; set; }
+
+        public string Middlename { get; set; }
+
         public string Lastname { get; set; }
+
+        public string Nickname { get; set; }
+
+        public string Company { get; set; }
+
+        public string Title { get; set; }
 
         public string Address { get; set; }
 
         public string HomePhone { get; set; }
 
+        public string HomePage { get; set; }
+
         public string MobilePhone { get; set; }
 
         public string WorkPhone { get; set; }
+
+        public string Fax { get; set; }
 
         public string AllPhones
         {
@@ -82,6 +97,50 @@ namespace address_book_web_tests
                 allEmails = value;
             }
         }
+
+        public string AllContactInfo
+        {
+            get
+            {
+                if (allContactInfo != null)
+                {
+                    return allContactInfo;
+                }
+                else
+                {
+                    return (
+                        CleanUp(Firstname) +
+                        CleanUp(Middlename) +
+                        CleanUp(Lastname) +
+                        CleanUp(Nickname) +
+                        CleanUp(Title) +
+                        CleanUp(Company) +
+                        CleanUp(Address) +
+                        CleanUp(AllPhones) +
+                        CleanUp(Fax) +
+                        CleanUp(AllEmails) +
+                        CleanUp(HomePage) +
+                        CleanUp(SecondaryAddress) +
+                        CleanUp(SecondaryHomePhone) +
+                        CleanUp(SecondaryNotes)
+                        ).Trim();
+                }
+            }
+            set
+            {
+                allContactInfo = value;
+            }
+        }
+
+        public string Birthday { get; set; }
+
+        public string Anniversary { get; set; }
+
+        public string SecondaryAddress { get; set; }
+
+        public string SecondaryHomePhone { get; set; }
+
+        public string SecondaryNotes { get; set; }
 
         public int CompareTo(ContactData otherContact)
         {

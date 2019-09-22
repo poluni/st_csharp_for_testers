@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using System;
+using OpenQA.Selenium;
 
 namespace address_book_web_tests
 {

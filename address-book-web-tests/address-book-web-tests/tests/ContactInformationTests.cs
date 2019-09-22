@@ -20,5 +20,13 @@ namespace address_book_web_tests
             Assert.AreEqual(fromTable.AllEmails, fromForm.AllEmails);
             Assert.AreEqual(fromTable.AllPhones, fromForm.AllPhones);
         }
+
+        [Test]
+        public void ContactInformationWithDetailsTest()
+        {
+            string fromPage = app.Contact.GetContactInformationFromPage(0);
+            string fromForm = app.Contact.ConvertFromContactDataToString(app.Contact.GetContactInformationFromEditForm(0));
+            Assert.AreEqual(fromForm, fromPage);
+        }
     }
 }
