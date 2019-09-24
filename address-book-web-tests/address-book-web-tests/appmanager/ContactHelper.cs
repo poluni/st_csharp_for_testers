@@ -73,7 +73,7 @@ namespace address_book_web_tests
 
         public string ConvertFromContactDataToString(ContactData data)
         {
-            return Regex.Replace(ExtractCleanText(data.AllContactInfo), "\r\n", ""); 
+            return ExtractCleanText(data.AllContactInfo); 
         }
 
             public string GetContactInformationFromPage(int index)
@@ -81,23 +81,12 @@ namespace address_book_web_tests
             string id = GetContactInformationFromEditForm(index).IdContact;
             manager.Navigator.GoToHomePage();
             driver.FindElement(By.XPath("(//a[@href='view.php?id=" + id + "'])")).Click();
-            return Regex.Replace(ExtractCleanText(driver.FindElement(By.Id("content")).Text), "\r\n", "");
+            return ExtractCleanText(driver.FindElement(By.Id("content")).Text);
         }
 
         private string ExtractCleanText(string data)
         {
-            return data.Replace("H:", "")
-                .Replace("M:", "")
-                .Replace("W:", "")
-                .Replace("F:", "")
-                .Replace("Homepage:", "")
-                .Replace("P:", "")
-                .Replace(" ", "")
-                .Replace(@"\r", "")
-                .Replace("-", "")
-                .Replace("(", "")
-                .Replace(")", "")
-                .Replace(@"\n", "");
+            return Regex.Replace(data, "[ ,()(^(H|M|W|F|Homepage|P):)\r\n]", "");
         }
 
         public ContactData GetContactInformationFromTable(int index)

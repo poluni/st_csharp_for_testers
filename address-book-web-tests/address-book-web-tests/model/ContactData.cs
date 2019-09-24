@@ -108,23 +108,64 @@ namespace address_book_web_tests
                 }
                 else
                 {
-                    return (
-                        CleanUp(Firstname) +
-                        CleanUp(Middlename) +
-                        CleanUp(Lastname) +
-                        CleanUp(Nickname) +
-                        CleanUp(Title) +
-                        CleanUp(Company) +
-                        CleanUp(Address) +
-                        CleanUp(AllPhones) +
-                        CleanUp(Fax) +
-                        CleanUp(AllEmails) +
-                        CleanUp(HomePage) +
-                        CleanUp(SecondaryAddress) +
-                        CleanUp(SecondaryHomePhone) +
-                        CleanUp(SecondaryNotes)
-                        ).Trim();
+                    if (Firstname != null)
+                    {
+                        allContactInfo = Firstname;
+                    }
+                    if (Middlename != null)
+                    {
+                        allContactInfo += Middlename;
+                    }
+                    if (Lastname != null)
+                    {
+                        allContactInfo += Lastname;
+                    }
+                    if (Nickname != null)
+                    {
+                        allContactInfo += Nickname;
+                    }
+                    if (Title != null)
+                    {
+                        allContactInfo += Title;
+                    }
+                    if (Company != null)
+                    {
+                        allContactInfo += Company;
+                    }
+                    if (Address != null)
+                    {
+                        allContactInfo += Address;
+                    }
+                    if (AllPhones != null)
+                    {
+                        allContactInfo += AllPhones;
+                    }
+                    if (Fax != null)
+                    {
+                        allContactInfo += Fax;
+                    }
+                    if (AllEmails != null)
+                    {
+                        allContactInfo += AllEmails;
+                    }
+                    if (HomePage != null)
+                    {
+                        allContactInfo += HomePage;
+                    }
+                    if (SecondaryAddress != null)
+                    {
+                        allContactInfo += SecondaryAddress;
+                    }
+                    if (SecondaryHomePhone != null)
+                    {
+                        allContactInfo += SecondaryHomePhone;
+                    }
+                    if (SecondaryNotes != null)
+                    {
+                        allContactInfo += SecondaryNotes;
+                    }
                 }
+                return allContactInfo;
             }
             set
             {
