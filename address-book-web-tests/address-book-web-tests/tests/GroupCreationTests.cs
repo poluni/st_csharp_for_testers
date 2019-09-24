@@ -8,12 +8,23 @@ namespace address_book_web_tests
     [TestFixture]
     public class GroupCreationTests : AuthTestBase
     {
-        [Test]
-        public void CreateNewGroupWithFillFieldsTest()
+        public static IEnumerable<GroupData> RandomGroupDataProvider()
         {
-            GroupData groupData = new GroupData("Group_1");
-            groupData.Header = "Header_1";
-            groupData.Footer = "Footer_1";
+            List<GroupData> groups = new List<GroupData>();
+            for (int i = 0; i < 5; i++)
+            {
+                  groups.Add(new GroupData(GenerateRandomString(30))
+                  {
+                      Header = GenerateRandomString(100),
+                      Footer = GenerateRandomString(100)
+                  });
+            }
+            return groups;
+        }
+
+        [Test, TestCaseSource("RandomGroupDataProvider")]
+        public void CreateNewGroupWithFillFieldsTest(GroupData groupData)
+        {
             List<GroupData> oldGroups = app.Groups.GetGroupList();
             app.Groups.Create(groupData);
             List<GroupData> newGroups = app.Groups.GetGroupList();

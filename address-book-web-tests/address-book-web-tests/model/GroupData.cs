@@ -52,6 +52,6 @@ namespace address_book_web_tests
 
         public override int GetHashCode() => Name.GetHashCode();
 
-        public override string ToString() => "name = " + Name;
+        public override string ToString() => "name = " + Name + "\n header = " + Header + "\n footer = " + Footer;
     }
 }
