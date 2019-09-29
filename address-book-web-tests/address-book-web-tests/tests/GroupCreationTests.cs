@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System;
+using System.IO;
 using System.Collections.Generic;
 
 namespace address_book_web_tests
@@ -22,7 +23,23 @@ namespace address_book_web_tests
             return groups;
         }
 
-        [Test, TestCaseSource("RandomGroupDataProvider")]
+        public static IEnumerable<GroupData> GroupDataFromFile()
+        {
+            List<GroupData> groups = new List<GroupData>();
+            string[] lines = File.ReadAllLines(@"groups.csv");
+            foreach (string line in lines)
+            {
+                string[] parts = line.Split(',');
+                groups.Add(new GroupData(parts[0])
+                {
+                    Header = parts[1],
+                    Footer = parts[2]
+                });
+            }
+            return groups;
+        }
+
+        [Test, TestCaseSource("GroupDataFromFile")]
         public void CreateNewGroupWithFillFieldsTest(GroupData groupData)
         {
             List<GroupData> oldGroups = app.Groups.GetGroupList();
