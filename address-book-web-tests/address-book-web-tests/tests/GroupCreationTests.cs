@@ -26,7 +26,7 @@ namespace address_book_web_tests
         public static IEnumerable<GroupData> GroupDataFromFile()
         {
             List<GroupData> groups = new List<GroupData>();
-            string[] lines = File.ReadAllLines(@"groups.csv");
+            string[] lines = File.ReadAllLines(@"groups.json");
             foreach (string line in lines)
             {
                 string[] parts = line.Split(',');
