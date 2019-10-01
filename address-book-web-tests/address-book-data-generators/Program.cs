@@ -66,12 +66,12 @@ namespace address_book_web_tests
             }
         }
 
-        private static void writeContactsToJsonFile(List<ContactData> contacts, StreamWriter writer)
+        static void writeContactsToJsonFile(List<ContactData> contacts, StreamWriter writer)
         {
-            writer.WriteLine(JsonConvert.SerializeObject(contacts));
+            writer.WriteLine(JsonConvert.SerializeObject(contacts, Newtonsoft.Json.Formatting.Indented));
         }
 
-        private static void writeContactsToXmlFile(List<ContactData> contacts, StreamWriter writer)
+        static void writeContactsToXmlFile(List<ContactData> contacts, StreamWriter writer)
         {
             new XmlSerializer(typeof(List<ContactData>)).Serialize(writer, contacts);
         }
@@ -101,7 +101,7 @@ namespace address_book_web_tests
 
         static void writeGroupsToJsonFile(List<GroupData> groups, StreamWriter writer)
         {
-            writer.WriteLine(JsonConvert.SerializeObject(groups));
+            writer.WriteLine(JsonConvert.SerializeObject(groups, Newtonsoft.Json.Formatting.Indented));
         }
     }
 }

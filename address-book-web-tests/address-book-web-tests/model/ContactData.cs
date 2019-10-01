@@ -11,7 +11,6 @@ namespace address_book_web_tests
     {
         private string allPhones;
         private string allEmails;
-        private string allContactInfo;
 
         public ContactData()
         {
@@ -108,73 +107,6 @@ namespace address_book_web_tests
             {
                 return allContactInfo;
             }
-            /*
-                if (allContactInfo != null)
-                {
-                    return allContactInfo;
-                }
-                else
-                {
-                    if (Firstname != null)
-                    {
-                        allContactInfo = Firstname;
-                    }
-                    if (Middlename != null)
-                    {
-                        allContactInfo += Middlename;
-                    }
-                    if (Lastname != null)
-                    {
-                        allContactInfo += Lastname;
-                    }
-                    if (Nickname != null)
-                    {
-                        allContactInfo += Nickname;
-                    }
-                    if (Title != null)
-                    {
-                        allContactInfo += Title;
-                    }
-                    if (Company != null)
-                    {
-                        allContactInfo += Company;
-                    }
-                    if (Address != null)
-                    {
-                        allContactInfo += Address;
-                    }
-                    if (AllPhones != null)
-                    {
-                        allContactInfo += AllPhones;
-                    }
-                    if (Fax != null)
-                    {
-                        allContactInfo += Fax;
-                    }
-                    if (AllEmails != null)
-                    {
-                        allContactInfo += AllEmails;
-                    }
-                    if (HomePage != null)
-                    {
-                        allContactInfo += HomePage;
-                    }
-                    if (SecondaryAddress != null)
-                    {
-                        allContactInfo += SecondaryAddress;
-                    }
-                    if (SecondaryHomePhone != null)
-                    {
-                        allContactInfo += SecondaryHomePhone;
-                    }
-                    if (SecondaryNotes != null)
-                    {
-                        allContactInfo += SecondaryNotes;
-                    }
-                }
-                return allContactInfo;
-            }
-            */
             set
             {
                 allContactInfo = value;

@@ -23,10 +23,10 @@ namespace address_book_web_tests
             return groups;
         }
 
-        public static IEnumerable<GroupData> GroupDataFromFile()
+        public static IEnumerable<GroupData> GroupDataFromCsvFile()
         {
             List<GroupData> groups = new List<GroupData>();
-            string[] lines = File.ReadAllLines(@"groups.json");
+            string[] lines = File.ReadAllLines(@"groups.csv");
             foreach (string line in lines)
             {
                 string[] parts = line.Split(',');
@@ -39,7 +39,7 @@ namespace address_book_web_tests
             return groups;
         }
 
-        [Test, TestCaseSource("GroupDataFromFile")]
+        [Test, TestCaseSource("GroupDataFromCsvFile")]
         public void CreateNewGroupWithFillFieldsTest(GroupData groupData)
         {
             List<GroupData> oldGroups = app.Groups.GetGroupList();
