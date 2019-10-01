@@ -25,7 +25,7 @@ namespace address_book_web_tests
         public void ContactInformationWithDetailsTest()
         {
             string fromPage = app.Contact.GetContactInformationFromPage(0);
-            string fromForm = app.Contact.ConvertFromContactDataToString(app.Contact.GetContactInformationFromEditForm(0));
+            string fromForm = app.Contact.MakeAllContactString(app.Contact.GetContactInformationFromEditForm(0));
             Assert.AreEqual(fromForm, fromPage);
         }
     }

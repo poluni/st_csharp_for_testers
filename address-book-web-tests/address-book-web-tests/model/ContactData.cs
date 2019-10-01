@@ -59,7 +59,7 @@ namespace address_book_web_tests
                 }
                 else
                 {
-                    return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone)).Trim();
+                    return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone) + CleanUp(SecondaryHomePhone)).Trim();
                 }
             }
             set
@@ -106,6 +106,9 @@ namespace address_book_web_tests
         {
             get
             {
+                return allContactInfo;
+            }
+            /*
                 if (allContactInfo != null)
                 {
                     return allContactInfo;
@@ -171,6 +174,7 @@ namespace address_book_web_tests
                 }
                 return allContactInfo;
             }
+            */
             set
             {
                 allContactInfo = value;
