@@ -2,6 +2,9 @@ using NUnit.Framework;
 using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Xml;
+using System.Xml.Serialization;
+using Newtonsoft.Json;
 
 namespace address_book_web_tests
 {
@@ -39,7 +42,19 @@ namespace address_book_web_tests
             return groups;
         }
 
-        [Test, TestCaseSource("GroupDataFromCsvFile")]
+        public static IEnumerable<GroupData> GroupDataFromXmlFile()
+        {
+            List<GroupData> groups = new List<GroupData>();            
+            return (List<GroupData>) new XmlSerializer(typeof(List<GroupData>))
+                .Deserialize(new StreamReader(@"groups.xml"));
+        }
+
+        public static IEnumerable<GroupData> GroupDataFromJsonFile()
+        {
+            return JsonConvert.DeserializeObject<List<GroupData>>(File.ReadAllText(@"groups.json"));
+        }
+
+        [Test, TestCaseSource("GroupDataFromJsonFile")]
         public void CreateNewGroupWithFillFieldsTest(GroupData groupData)
         {
             List<GroupData> oldGroups = app.Groups.GetGroupList();

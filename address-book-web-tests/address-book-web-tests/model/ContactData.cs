@@ -11,6 +11,7 @@ namespace address_book_web_tests
     {
         private string allPhones;
         private string allEmails;
+        private string allContactInfo;
 
         public ContactData()
         {
