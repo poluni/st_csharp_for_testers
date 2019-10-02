@@ -1,6 +1,9 @@
 ﻿using NUnit.Framework;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
+using Newtonsoft.Json;
 
 namespace address_book_web_tests
 {
@@ -17,10 +20,10 @@ namespace address_book_web_tests
             return contacts;
         }
 
-        public static IEnumerable<ContactData> ContactDataFromFile()
+        public static IEnumerable<ContactData> ContactDataFromCsvFile()
         {
             List<ContactData> contacts = new List<ContactData>();
-            string[] lines = File.ReadAllLines(@"contacts.json");
+            string[] lines = File.ReadAllLines(@"contacts.csv");
             foreach (string line in lines)
             {
                 string[] parts = line.Split(',');
@@ -29,7 +32,19 @@ namespace address_book_web_tests
             return contacts;
         }
 
-        [Test, TestCaseSource("ContactDataFromFile")]
+        public static IEnumerable<ContactData> ContactDataFromXmlFile()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            return (List<ContactData>)new XmlSerializer(typeof(List<ContactData>))
+                .Deserialize(new StreamReader(@"contacts.xml"));
+        }
+
+        public static IEnumerable<ContactData> ContactDataFromJsonFile()
+        {
+            return JsonConvert.DeserializeObject<List<ContactData>>(File.ReadAllText(@"contacts.json"));
+        }
+
+        [Test, TestCaseSource("ContactDataFromXmlFile")]
         public void ContactCreationTest(ContactData contactData)
         {
             List<ContactData> oldContacts = app.Contact.GetContactList();
