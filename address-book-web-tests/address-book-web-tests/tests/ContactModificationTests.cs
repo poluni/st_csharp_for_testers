@@ -4,17 +4,18 @@ using System.Collections.Generic;
 namespace address_book_web_tests
 {
     [TestFixture]
-    public class ContactModificationTests : AuthTestBase
+    public class ContactModificationTests : ContactTestBase
     {
 
         [Test]
         public void ContactModificationTest()
         {
-            ContactData newContactData = new ContactData("Yan", "Сидоров-Иванов");
-            List<ContactData> oldContacts = app.Contact.GetContactList();
             app.Contact.CheckContactExist(0, new ContactData("Вася", "Иванов"));
-            app.Contact.Modify(0, newContactData);
-            List<ContactData> newContacts = app.Contact.GetContactList();
+            ContactData newContactData = new ContactData("Yan", "Сидоров-Иванов");
+            List<ContactData> oldContacts = ContactData.GetAllContacts();
+            //ContactData toBeModification = oldContacts[0];
+            app.Contact.Modify(oldContacts[0], newContactData);
+            List<ContactData> newContacts = ContactData.GetAllContacts();
             oldContacts[0].Firstname = newContactData.Firstname;
             oldContacts[0].Lastname = newContactData.Lastname;
             oldContacts.Sort();
@@ -25,11 +26,11 @@ namespace address_book_web_tests
         [Test]
         public void ContactEmptyModificationTest()
         {
-            ContactData newContactData = new ContactData("", "");
-            List<ContactData> oldContacts = app.Contact.GetContactList();
             app.Contact.CheckContactExist(0, new ContactData("Вася", "Иванов"));
-            app.Contact.Modify(0, newContactData);
-            List<ContactData> newContacts = app.Contact.GetContactList();
+            ContactData newContactData = new ContactData("", "");
+            List<ContactData> oldContacts = ContactData.GetAllContacts();
+            app.Contact.Modify(oldContacts[0], newContactData);
+            List<ContactData> newContacts = ContactData.GetAllContacts();
             oldContacts[0].Firstname = newContactData.Firstname;
             oldContacts[0].Lastname = newContactData.Lastname;
             oldContacts.Sort();

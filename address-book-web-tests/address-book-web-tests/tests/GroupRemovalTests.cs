@@ -10,10 +10,10 @@ namespace address_book_web_tests
         [Test]
         public void RemoveGroupTest()
         {
+            app.Groups.CheckGroupExist(0, new GroupData("Group_1", "Header_1", "Footer_2"));
             List<GroupData> oldGroups = GroupData.GetAllGroups();
             GroupData toBeRemoved = oldGroups[0];
-            app.Groups.CheckGroupExist(oldGroups[0], new GroupData("Group_1", "Header_1", "Footer_2"));
-            app.Groups.Remove(oldGroups[0]);
+            app.Groups.Remove(toBeRemoved);
             List<GroupData> newGroups = GroupData.GetAllGroups();
             oldGroups.RemoveAt(0);
             oldGroups.Sort();

@@ -26,6 +26,17 @@ namespace address_book_web_tests
             return this;
         }
 
+        public ContactHelper Modify(ContactData oldContactData, ContactData newContactData)
+        {
+            manager.Navigator.GoToHomePage();
+            SelectContact(oldContactData.IdContact);
+            GoToEditContactPage();
+            FillContactForm(newContactData);
+            SubmitContactModification();
+            manager.Navigator.GoToHomePage();
+            return this;
+        }
+
         public ContactData GetContactInformationFromEditForm(int index)
         {
             manager.Navigator.GoToHomePage();
@@ -208,6 +219,17 @@ namespace address_book_web_tests
             return this;
         }
 
+        public ContactHelper Remove(ContactData toBeRemoved, bool alertAcc)
+        {
+            manager.Navigator.GoToHomePage();
+            SelectContact(toBeRemoved.IdContact);
+            SubmitContactRemoval();
+            IsAlertPresent();
+            CloseAlertAndGetItsText(alertAcc);
+            manager.Navigator.GoToHomePage();
+            return this;
+        }
+
         private ContactHelper SubmitContactRemoval()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
@@ -280,7 +302,13 @@ namespace address_book_web_tests
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + 1 + "]")).Click();
             return this;
         }
-        
+
+        public ContactHelper SelectContact(String id)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='" + id + "'])")).Click();
+            return this;
+        }
+
         public ContactHelper GoToEditContactPage()
         {
             driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();

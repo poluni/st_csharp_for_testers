@@ -56,6 +56,17 @@ namespace address_book_web_tests
             return new List<GroupData>(groupCache);
         }
 
+        public GroupHelper Modify(GroupData oldGroupData, GroupData newData)
+        {
+            manager.Navigator.GoToGroupsPage();
+            SelectGroup(oldGroupData.Id);
+            InitGroupModification();
+            FillGroupForm(newData);
+            SubmitGroupModification();
+            ReturnToGroupsPage();
+            return this;
+        }
+        
         public GroupHelper CheckGroupExist(int num, GroupData group)
         {
             manager.Navigator.GoToGroupsPage();
@@ -73,25 +84,7 @@ namespace address_book_web_tests
             }
             return this;
         }
-
-        public GroupHelper CheckGroupExist(GroupData group1, GroupData group2)
-        {
-            manager.Navigator.GoToGroupsPage();
-            if (IsGroupCreatedBase())
-            {
-                if (IsGroupCreated(group1.Id, group2))
-                {
-                    return this;
-                }
-            }
-            else
-            {
-                Create(group2);
-                return this;
-            }
-            return this;
-        }
-
+        
         public GroupHelper Modify(int num, GroupData newData)
         { 
             manager.Navigator.GoToGroupsPage();
@@ -108,13 +101,6 @@ namespace address_book_web_tests
             return IsGroupCreatedBase()
                 && driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (num + 1) + "]")).Text
                 == group.Name;
-        }
-
-        private bool IsGroupCreated(string id, GroupData group2)
-        {
-            return IsGroupCreatedBase()
-                && driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='" + id + "'])")).Text
-                == group2.Name;
         }
 
         public bool IsGroupCreatedBase()
