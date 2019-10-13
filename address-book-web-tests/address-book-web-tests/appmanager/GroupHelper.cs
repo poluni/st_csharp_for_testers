@@ -72,7 +72,25 @@ namespace address_book_web_tests
                 return this;
             }
             return this;
-        }        
+        }
+
+        public GroupHelper CheckGroupExist(GroupData group1, GroupData group2)
+        {
+            manager.Navigator.GoToGroupsPage();
+            if (IsGroupCreatedBase())
+            {
+                if (IsGroupCreated(group1.Id, group2))
+                {
+                    return this;
+                }
+            }
+            else
+            {
+                Create(group2);
+                return this;
+            }
+            return this;
+        }
 
         public GroupHelper Modify(int num, GroupData newData)
         { 
@@ -90,6 +108,13 @@ namespace address_book_web_tests
             return IsGroupCreatedBase()
                 && driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (num + 1) + "]")).Text
                 == group.Name;
+        }
+
+        private bool IsGroupCreated(string id, GroupData group2)
+        {
+            return IsGroupCreatedBase()
+                && driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='" + id + "'])")).Text
+                == group2.Name;
         }
 
         public bool IsGroupCreatedBase()
@@ -114,6 +139,15 @@ namespace address_book_web_tests
         {
             manager.Navigator.GoToGroupsPage();
             SelectGroup(num);
+            RemoveGroup();
+            ReturnToGroupsPage();
+            return this;
+        }
+
+        public GroupHelper Remove(GroupData group)
+        {
+            manager.Navigator.GoToGroupsPage();
+            SelectGroup(group.Id);
             RemoveGroup();
             ReturnToGroupsPage();
             return this;
@@ -157,6 +191,12 @@ namespace address_book_web_tests
         {
                 driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
                 return this;
+        }
+
+        public GroupHelper SelectGroup(String id)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='" + id + "'])")).Click();
+            return this;
         }
     }
 }

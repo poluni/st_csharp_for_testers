@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Xml;
+using System.Linq;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
 
@@ -10,7 +11,7 @@ namespace address_book_web_tests
 {
 
     [TestFixture]
-    public class GroupCreationTests : AuthTestBase
+    public class GroupCreationTests : GroupTestBase
     {
         public static IEnumerable<GroupData> RandomGroupDataProvider()
         {
@@ -57,9 +58,9 @@ namespace address_book_web_tests
         [Test, TestCaseSource("GroupDataFromJsonFile")]
         public void CreateNewGroupWithFillFieldsTest(GroupData groupData)
         {
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
+            List<GroupData> oldGroups = GroupData.GetAll();
             app.Groups.Create(groupData);
-            List<GroupData> newGroups = app.Groups.GetGroupList();
+            List<GroupData> newGroups = GroupData.GetAll();
             oldGroups.Add(groupData);
             oldGroups.Sort();
             newGroups.Sort();
@@ -94,6 +95,19 @@ namespace address_book_web_tests
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
+        }
+
+        [Test]
+        public void TestDBConnectivity()
+        {
+            DateTime start = DateTime.Now;
+            List<GroupData> groupFromUI = app.Groups.GetGroupList();
+            DateTime end = DateTime.Now;
+            System.Console.WriteLine(String.Format("Время выполнения получения списка групп из UI: {0} секунд", end.Subtract(start).TotalSeconds));
+            start = DateTime.Now;
+            List<GroupData> groupFromDB = GroupData.GetAll();
+            end = DateTime.Now;
+            System.Console.WriteLine(String.Format("Время выполнения получения списка групп из БД: {0} секунд", end.Subtract(start).TotalSeconds));
         }
     }
 }
