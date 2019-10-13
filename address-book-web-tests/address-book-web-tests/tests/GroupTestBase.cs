@@ -15,7 +15,7 @@ namespace address_book_web_tests
             if (PERFORM_LONG_UI_CHECKS)
             {
                 List<GroupData> groupsFromUI = app.Groups.GetGroupList();
-                List<GroupData> groupsFromDB = GroupData.GetAll();
+                List<GroupData> groupsFromDB = GroupData.GetAllGroups();
                 groupsFromUI.Sort();
                 groupsFromDB.Sort();
                 Assert.AreEqual(groupsFromUI, groupsFromDB);

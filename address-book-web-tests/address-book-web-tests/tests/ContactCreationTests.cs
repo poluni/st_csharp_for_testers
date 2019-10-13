@@ -1,14 +1,16 @@
 ﻿using NUnit.Framework;
-using System.Collections.Generic;
+using System;
 using System.IO;
+using System.Collections.Generic;
 using System.Xml;
+using System.Linq;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
 
 namespace address_book_web_tests
 {
     [TestFixture]
-    public class ContactCreationTests : AuthTestBase
+    public class ContactCreationTests : ContactTestBase
     {
         public static IEnumerable<ContactData> RandomContactDataProvider()
         {
@@ -47,13 +49,26 @@ namespace address_book_web_tests
         [Test, TestCaseSource("ContactDataFromXmlFile")]
         public void ContactCreationTest(ContactData contactData)
         {
-            List<ContactData> oldContacts = app.Contact.GetContactList();
+            List<ContactData> oldContacts = ContactData.GetAllContacts();
             app.Contact.Create(contactData);
-            List<ContactData> newContacts = app.Contact.GetContactList();
+            List<ContactData> newContacts = ContactData.GetAllContacts();
             oldContacts.Add(contactData);
             oldContacts.Sort();
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);
-        }     
+        }
+
+        [Test]
+        public void TestDBConnectivity()
+        {
+            DateTime start = DateTime.Now;
+            List<ContactData> contactFromUI = app.Contact.GetContactList();
+            DateTime end = DateTime.Now;
+            System.Console.WriteLine(String.Format("Время выполнения получения списка групп из UI: {0} секунд", end.Subtract(start).TotalSeconds));
+            start = DateTime.Now;
+            List<ContactData> contactFromDB = ContactData.GetAllContacts();
+            end = DateTime.Now;
+            System.Console.WriteLine(String.Format("Время выполнения получения списка групп из БД: {0} секунд", end.Subtract(start).TotalSeconds));
+        }
     }
 }

@@ -12,11 +12,11 @@ namespace address_book_web_tests
             GroupData newData = new GroupData("Group_0");
             newData.Header = "Header_0";
             newData.Footer = "Footer_0";
-            List<GroupData> oldGroups = GroupData.GetAll();
+            List<GroupData> oldGroups = GroupData.GetAllGroups();
             GroupData toBeRemoved = oldGroups[0];
             app.Groups.CheckGroupExist(oldGroups[0], new GroupData("Group_1", "Header_1", "Footer_2"));
             app.Groups.Modify(0, newData);
-            List<GroupData> newGroups = GroupData.GetAll();
+            List<GroupData> newGroups = GroupData.GetAllGroups();
             oldGroups[0].Name = newData.Name;
             oldGroups.Sort();
             newGroups.Sort();

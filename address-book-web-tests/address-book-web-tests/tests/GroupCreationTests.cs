@@ -58,9 +58,9 @@ namespace address_book_web_tests
         [Test, TestCaseSource("GroupDataFromJsonFile")]
         public void CreateNewGroupWithFillFieldsTest(GroupData groupData)
         {
-            List<GroupData> oldGroups = GroupData.GetAll();
+            List<GroupData> oldGroups = GroupData.GetAllGroups();
             app.Groups.Create(groupData);
-            List<GroupData> newGroups = GroupData.GetAll();
+            List<GroupData> newGroups = GroupData.GetAllGroups();
             oldGroups.Add(groupData);
             oldGroups.Sort();
             newGroups.Sort();
@@ -105,7 +105,7 @@ namespace address_book_web_tests
             DateTime end = DateTime.Now;
             System.Console.WriteLine(String.Format("Время выполнения получения списка групп из UI: {0} секунд", end.Subtract(start).TotalSeconds));
             start = DateTime.Now;
-            List<GroupData> groupFromDB = GroupData.GetAll();
+            List<GroupData> groupFromDB = GroupData.GetAllGroups();
             end = DateTime.Now;
             System.Console.WriteLine(String.Format("Время выполнения получения списка групп из БД: {0} секунд", end.Subtract(start).TotalSeconds));
         }

@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using LinqToDB.Mapping;
 
 namespace address_book_web_tests
 {
+    [Table(Name = "addressbook")]
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         private string allPhones;
@@ -23,30 +25,43 @@ namespace address_book_web_tests
             Lastname = lastname;
         }
 
+        [Column(Name = "firstname"), NotNull]
         public string Firstname { get; set; }
 
+        [Column(Name = "id"), PrimaryKey, Identity]
         public string IdContact { get; set; }
 
+        [Column(Name = "middlename"), NotNull]
         public string Middlename { get; set; }
 
+        [Column(Name = "lastname"), NotNull]
         public string Lastname { get; set; }
 
+        [Column(Name = "nickname"), NotNull]
         public string Nickname { get; set; }
 
+        [Column(Name = "company"), NotNull]
         public string Company { get; set; }
 
+        [Column(Name = "title"), NotNull]
         public string Title { get; set; }
 
+        [Column(Name = "address"), NotNull]
         public string Address { get; set; }
 
-        public string HomePhone { get; set; }
-
+        [Column(Name = "homepage"), NotNull]
         public string HomePage { get; set; }
 
+        [Column(Name = "home"), NotNull]
+        public string HomePhone { get; set; }
+               
+        [Column(Name = "mobile"), NotNull]
         public string MobilePhone { get; set; }
 
+        [Column(Name = "work"), NotNull]
         public string WorkPhone { get; set; }
 
+        [Column(Name = "fax"), NotNull]
         public string Fax { get; set; }
 
         public string AllPhones
@@ -77,10 +92,13 @@ namespace address_book_web_tests
             return Regex.Replace(data, "[ -()]", "") + "\r\n";
         }
 
+        [Column(Name = "email"), NotNull]
         public string Email { get; set; }
 
+        [Column(Name = "email2"), NotNull]
         public string Email2 { get; set; }
 
+        [Column(Name = "email3"), NotNull]
         public string Email3 { get; set; }
 
         public string AllEmails
@@ -118,10 +136,13 @@ namespace address_book_web_tests
 
         public string Anniversary { get; set; }
 
+        [Column(Name = "address2"), NotNull]
         public string SecondaryAddress { get; set; }
 
+        [Column(Name = "phone2"), NotNull]
         public string SecondaryHomePhone { get; set; }
 
+        [Column(Name = "notes"), NotNull]
         public string SecondaryNotes { get; set; }
 
         public int CompareTo(ContactData otherContact)
@@ -151,6 +172,14 @@ namespace address_book_web_tests
                 return true;
             }
             return Firstname == otherContact.Firstname && Lastname == otherContact.Lastname;
+        }
+
+        public static List<ContactData> GetAllContacts()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from c in db.Contacts select c).ToList();
+            }
         }
 
         public override int GetHashCode() => (Firstname + Lastname).GetHashCode();

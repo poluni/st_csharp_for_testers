@@ -38,7 +38,7 @@ namespace address_book_web_tests
         [Column(Name = "group_id"), PrimaryKey, Identity]
         public string Id { get; set; }
 
-        public static List<GroupData> GetAll()
+        public static List<GroupData> GetAllGroups()
         {
             using (AddressBookDB db = new AddressBookDB())
             {
