@@ -27,5 +27,12 @@ namespace address_book_web_tests
             }
         }
 
+        public ITable<GroupContactRelation> GCR
+        {
+            get
+            {
+                return GetTable<GroupContactRelation>();
+            }
+        }
     }
 }

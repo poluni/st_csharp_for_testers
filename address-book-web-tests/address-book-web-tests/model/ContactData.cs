@@ -145,6 +145,9 @@ namespace address_book_web_tests
         [Column(Name = "notes"), NotNull]
         public string SecondaryNotes { get; set; }
 
+        [Column(Name = "deprecated"), NotNull]
+        public string Deprecated { get; set; }
+
         public int CompareTo(ContactData otherContact)
         {
             if (Object.ReferenceEquals(otherContact, null))
@@ -178,7 +181,7 @@ namespace address_book_web_tests
         {
             using (AddressBookDB db = new AddressBookDB())
             {
-                return (from c in db.Contacts select c).ToList();
+                return (from c in db.Contacts.Where(x => x.Deprecated == "0000-00-00 00:00:00") select c).ToList();
             }
         }
 

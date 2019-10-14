@@ -1,4 +1,6 @@
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +26,54 @@ namespace address_book_web_tests
             SubmitContactModification();
             manager.Navigator.GoToHomePage();
             return this;
+        }
+
+        public ContactHelper AddContactToGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigator.GoToHomePage();
+            ClearGroupFilter();
+            SelectContact(contact.IdContact);
+            SelectGroupToAdd(group.Name);
+            CommitAddingContactToGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+            return this;
+        }
+
+        public ContactHelper RemoveContactFromGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigator.GoToHomePage();
+            SelectGroupInGroupFilter(group.Name);
+            SelectContact(contact.IdContact);
+            CommitRemovingContactFromGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+            return this;
+        }
+
+        public void CommitRemovingContactFromGroup()
+        {
+            driver.FindElement(By.Name("remove")).Submit();
+        }
+
+        public void SelectGroupInGroupFilter(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText(name);
+        }
+
+        public void ClearGroupFilter()
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
+        }
+
+        public void SelectGroupToAdd(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
+        }
+
+        public void CommitAddingContactToGroup()
+        {
+            driver.FindElement(By.Name("add")).Submit();
         }
 
         public ContactHelper Modify(ContactData oldContactData, ContactData newContactData)
