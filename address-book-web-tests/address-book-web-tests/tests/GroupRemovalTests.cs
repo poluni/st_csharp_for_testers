@@ -4,13 +4,11 @@ using System.Collections.Generic;
 namespace address_book_web_tests
 {
     [TestFixture]
-    public class GroupRemovalTests : GroupTestBase
+    public class GroupRemovalTests : GroupExistTestBase
     {
-
         [Test]
         public void RemoveGroupTest()
         {
-            app.Groups.CheckGroupExist(0, new GroupData("Group_1", "Header_1", "Footer_2"));
             List<GroupData> oldGroups = GroupData.GetAllGroups();
             GroupData toBeRemoved = oldGroups[0];
             app.Groups.Remove(toBeRemoved);

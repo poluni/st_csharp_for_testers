@@ -7,12 +7,13 @@ using NUnit.Framework;
 
 namespace address_book_web_tests
 {
-    public class RemovingContactFromGroupTests : AuthTestBase
+    public class RemovingContactFromGroupTests : ContactAndGroupExistTestBase
     {
         [Test]
         public void TestRemovingContactFromGroup()
         {
             GroupData group = GroupData.GetAllGroups()[0];
+            app.Contact.CheckAbilityRemoveContactFromGroup(group);
             List<ContactData> oldList = group.GetContactsFromGroup();
             ContactData contact = ContactData.GetAllContacts().Intersect(oldList).First();
             app.Contact.RemoveContactFromGroup(contact, group);

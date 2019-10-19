@@ -15,8 +15,7 @@ namespace address_book_web_tests
             : base(manager)
         {
         }
-
-
+        
         public ContactHelper Modify(int num, ContactData newData)
         {
             manager.Navigator.GoToHomePage();
@@ -28,7 +27,7 @@ namespace address_book_web_tests
             return this;
         }
 
-        public ContactHelper AddContactToGroup(ContactData contact, GroupData group)
+        public void AddContactToGroup(ContactData contact, GroupData group)
         {
             manager.Navigator.GoToHomePage();
             ClearGroupFilter();
@@ -37,10 +36,9 @@ namespace address_book_web_tests
             CommitAddingContactToGroup();
             new WebDriverWait(driver, TimeSpan.FromSeconds(10))
                 .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
-            return this;
         }
 
-        public ContactHelper RemoveContactFromGroup(ContactData contact, GroupData group)
+        public void RemoveContactFromGroup(ContactData contact, GroupData group)
         {
             manager.Navigator.GoToHomePage();
             SelectGroupInGroupFilter(group.Name);
@@ -48,7 +46,6 @@ namespace address_book_web_tests
             CommitRemovingContactFromGroup();
             new WebDriverWait(driver, TimeSpan.FromSeconds(10))
                 .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
-            return this;
         }
 
         public void CommitRemovingContactFromGroup()
@@ -296,6 +293,30 @@ namespace address_book_web_tests
             return this;
         }
 
+        public void CheckAbilityAddContactToGroup(GroupData group)
+        {
+            if (ContactData.GetAllContacts().Except(group.GetContactsFromGroup()).Count() == 0)
+            {
+                ContactData contact = group.GetContactsFromGroup().First();
+                RemoveContactFromGroup(contact, group);
+            }
+        }
+
+        public void CheckAbilityRemoveContactFromGroup(GroupData group)
+        {
+            manager.Navigator.GoToHomePage();
+            if (group.GetContactsFromGroup().Count() == 0)
+            {
+                ContactData contact = ContactData.GetAllContacts()[0];
+                AddContactToGroup(contact, group);
+            }
+        }
+
+        public void SetUpGroupFilter(GroupData group)
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText(group.Name);
+        }
+
         public ContactHelper CheckContactExist(int num, ContactData contact)
         {
             manager.Navigator.GoToHomePage();
@@ -313,7 +334,7 @@ namespace address_book_web_tests
             }
             return this;
         }
-
+                
         public bool Is—ontactCreated(int num, ContactData contact)
         {
             return Is—ontactCreatedBase()

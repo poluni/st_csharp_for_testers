@@ -4,12 +4,11 @@ using System.Collections.Generic;
 namespace address_book_web_tests
 {
     [TestFixture]
-    public class ContactRemovalTests : ContactTestBase
+    public class ContactRemovalTests : ContactExistTestBase
     {
         [Test]
         public void ContactRemovalTest()
         {
-            app.Contact.CheckContactExist(0, new ContactData("Вася", "Иванов"));
             List<ContactData> oldContacts = ContactData.GetAllContacts();
             ContactData toBeRemoved = oldContacts[0];
             app.Contact.Remove(toBeRemoved, true);

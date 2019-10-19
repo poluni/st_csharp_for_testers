@@ -91,6 +91,9 @@
     <Compile Include="appmanager\GroupHelper.cs" />
     <Compile Include="tests\AddingContactToGroupTests.cs" />
     <Compile Include="tests\AuthTestBase.cs" />
+    <Compile Include="tests\ContactAndGroupExistTestBase.cs" />
+    <Compile Include="tests\ContactExistTestBase.cs" />
+    <Compile Include="tests\GroupExistTestBase.cs" />
     <Compile Include="tests\ContactCreationTests.cs" />
     <Compile Include="tests\ContactInformationTests.cs" />
     <Compile Include="tests\ContactModificationTests.cs" />
