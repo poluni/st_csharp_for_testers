@@ -6,6 +6,7 @@ using System.Xml;
 using System.Linq;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace address_book_web_tests
 {
@@ -46,7 +47,28 @@ namespace address_book_web_tests
             return JsonConvert.DeserializeObject<List<ContactData>>(File.ReadAllText(@"contacts.json"));
         }
 
-        [Test, TestCaseSource("ContactDataFromXmlFile")]
+        public static IEnumerable<ContactData> ContactDataFromExcelFile()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            Excel.Application app = new Excel.Application();
+            Excel.Workbook wb = app.Workbooks.Open(Path.Combine(Directory.GetCurrentDirectory(), @"contacts.xlsx"));
+            Excel.Worksheet sheet = wb.ActiveSheet;
+            Excel.Range range = sheet.UsedRange;
+            for (int i = 1; i <= range.Rows.Count; i++)
+            {
+                contacts.Add(new ContactData()
+                {
+                    Firstname = range.Cells[i, 1].Value,
+                    Lastname = range.Cells[i, 2].Value
+                });
+            }
+            wb.Close();
+            app.Visible = false;
+            app.Quit();
+            return contacts;
+        }
+
+        [Test, TestCaseSource("ContactDataFromExcelFile")]
         public void ContactCreationTest(ContactData contactData)
         {
             List<ContactData> oldContacts = ContactData.GetAllContacts();
