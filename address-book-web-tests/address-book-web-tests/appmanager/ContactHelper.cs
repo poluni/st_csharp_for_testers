@@ -140,91 +140,91 @@ namespace address_book_web_tests
                     allContactInfo.Append(" ");
                     allContactInfo.Append(data.Middlename);
                 }
-                if (data.Lastname != null)
+                if (data.Lastname != "")
                 {
                     allContactInfo.Append(" ");
-                    allContactInfo.Append(data.Lastname);
-                    allContactInfo.Append("\r\n");
+                    allContactInfo.Append(data.Lastname);                    
                 }
-                if (data.Nickname != null)
+                if (data.Nickname != "")
                 {
+                    allContactInfo.Append("\r\n");
                     allContactInfo.Append(data.Nickname);
-                    allContactInfo.Append("\r\n");
                 }
-                if (data.Title != null)
+                if (data.Title != "")
                 {
-                    allContactInfo.Append(data.Title);
-                    allContactInfo.Append("\r\n");
+                  allContactInfo.Append("\r\n");
+                   allContactInfo.Append(data.Title);
                 }
-                if (data.Company != null)
+                if (data.Company != "")
                 {
-                    allContactInfo.Append(data.Company);
-                    allContactInfo.Append("\r\n");
+                   allContactInfo.Append("\r\n");
+                   allContactInfo.Append(data.Company);
                 }
-                if (data.Address != null)
+                if (data.Address != "")
                 {
-                    allContactInfo.Append(data.Address);
+                   allContactInfo.Append("\r\n");
+                   allContactInfo.Append(data.Address);
+                }
+                if (data.HomePhone != "")
+                {
                     allContactInfo.Append("\r\n").Append("\r\n");
-                }
-                if (data.HomePhone != null)
-                {
                     allContactInfo.Append("H: ");
                     allContactInfo.Append(data.HomePhone);
-                    allContactInfo.Append("\r\n");
                 }
-                if (data.MobilePhone != null)
+                if (data.MobilePhone != "")
                 {
-                    allContactInfo.Append("M: ");
+                    allContactInfo.Append("\r\n");
+                     allContactInfo.Append("M: ");
                     allContactInfo.Append(data.MobilePhone);
-                    allContactInfo.Append("\r\n");
                 }
-                if (data.WorkPhone != null)
+                if (data.WorkPhone != "")
                 {
+                    allContactInfo.Append("\r\n");
                     allContactInfo.Append("W: ");
                     allContactInfo.Append(data.WorkPhone);
-                    allContactInfo.Append("\r\n");
                 }
-                if (data.Fax != null)
+                if (data.Fax != "")
                 {
+                   allContactInfo.Append("\r\n");
                     allContactInfo.Append("F: ");
                     allContactInfo.Append(data.Fax);
-                    allContactInfo.Append("\r\n").Append("\r\n");
                 }                
-                if (data.Email != null)
+                if (data.Email != "")
                 {
+                    allContactInfo.Append("\r\n").Append("\r\n");
                     allContactInfo.Append(data.Email);
-                    allContactInfo.Append("\r\n");
                 }
-                if (data.Email2 != null)
+                if (data.Email2 != "")
                 {
+                  allContactInfo.Append("\r\n");
                     allContactInfo.Append(data.Email2);
-                    allContactInfo.Append("\r\n");
                 }
-                if (data.Email3 != null)
+                if (data.Email3 != "")
                 {
+                    allContactInfo.Append("\r\n");
                     allContactInfo.Append(data.Email3);
-                    allContactInfo.Append("\r\n");
                 }
-                if (data.HomePage != null)
+                if (data.HomePage != "")
                 {
+                    allContactInfo.Append("\r\n");
                     allContactInfo.Append("Homepage:");
                     allContactInfo.Append("\r\n");
                     allContactInfo.Append(data.HomePage);
+                }
+                if (data.SecondaryAddress != "")
+                {
                     allContactInfo.Append("\r\n").Append("\r\n").Append("\r\n");
-                }
-                if (data.SecondaryAddress != null)
-                {
                     allContactInfo.Append(data.SecondaryAddress);
-                    allContactInfo.Append("\r\n").Append("\r\n");
                 }
-                if (data.SecondaryHomePhone != null)
+                if (data.SecondaryHomePhone != "")
                 {
+                    allContactInfo.Append("\r\n").Append("\r\n");
                     allContactInfo.Append("P: ");
                     allContactInfo.Append(data.SecondaryHomePhone);
-                    allContactInfo.Append("\r\n").Append("\r\n");
                 }
-                if (data.SecondaryNotes != null)
+                if (data.SecondaryNotes != "")
                 {
+                   allContactInfo.Append("\r\n").Append("\r\n");
                     allContactInfo.Append(data.SecondaryNotes);
                 }
             return allContactInfo.ToString();
